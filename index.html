@@ -604,7 +604,6 @@
         </div>
     </div>
     <div class="celebration" id="celebration"></div>
-
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="spinner"></div>
@@ -927,9 +926,11 @@
         function submitScore(email = '') {
             document.getElementById('loadingOverlay').style.display = 'block';
 
+            // เพิ่ม profilePic ใน gameData
             const gameData = {
                 uid: userProfile.userId || 'test-user-' + Date.now(),
                 name: userProfile.displayName || 'ผู้ใช้ทดสอบ',
+                profilePic: userProfile.pictureUrl || '', // เพิ่ม URL รูปโปรไฟล์
                 email: email,
                 score: score,
                 timestamp: new Date().toISOString()
@@ -941,6 +942,7 @@
             hasPlayedToday = true;
 
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbwT8sAUkjODy9J5mFA8xUqoAHAp77KbCCZOIV8VEq5gbieJ4n0KM_0wuN_tbxcQ_LY/exec';
+
             fetch(scriptUrl, {
                 method: 'POST',
                 headers: {
@@ -972,6 +974,7 @@
 
         function sendFlexMessage(data) {
             if (!liff.isInClient()) return;
+
             const flexMessage = {
                 type: "flex",
                 altText: "ผลการเล่นเกมส์ตีกลอง",
@@ -1078,6 +1081,7 @@
                     }
                 }
             };
+
             liff.sendMessages([flexMessage])
                 .then(() => {
                     console.log('Flex message sent successfully');
