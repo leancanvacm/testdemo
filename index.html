@@ -573,6 +573,27 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .already-played-notice {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        .already-played-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--warning-color);
+        }
+        .stats-btn {
+            margin-top: 20px;
+            display: none;
+        }
         @media (max-width: 480px) {
             .game-title {
                 font-size: 2em;
@@ -648,84 +669,89 @@
             </div>
 
             <div class="game-container">
-                <div class="daily-limit-notice hidden" id="dailyLimitNotice">
-                    <h3><i class="fas fa-clock"></i> คุณได้เล่นแล้ววันนี้</h3>
-                    <p>คุณสามารถเล่นได้เพียงครั้งเดียวต่อวัน<br>กลับมาเล่นใหม่พรุ่งนี้นะ!</p>
-                    <button class="game-button secondary" onclick="showDashboard()">
+                <div class="already-played-notice hidden" id="alreadyPlayedNotice">
+                    <div class="already-played-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h2>คุณได้เล่นเกมส์ไปแล้ววันนี้</h2>
+                    <p>ขอบคุณที่ร่วมสนุกกับเรา<br>คุณสามารถกลับมาเล่นใหม่ได้ในวันพรุ่งนี้</p>
+                    <button class="game-button secondary stats-btn" id="statsButton" onclick="showDashboard()">
                         <i class="fas fa-chart-bar"></i>
                         ดูสถิติ
                     </button>
                 </div>
                 
-                <div class="game-header">
-                    <h1 class="game-title">
-                        <i class="fas fa-drum"></i>
-                        เกมส์ตีกลองสุดสนุก
-                    </h1>
-                    <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
+                <div id="gameElements">
+                    <div class="game-header">
+                        <h1 class="game-title">
+                            <i class="fas fa-drum"></i>
+                            เกมส์ตีกลองสุดสนุก
+                        </h1>
+                        <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
+                    </div>
+                    
+                    <div class="instruction-card">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </div>
+                            <div>
+                                <strong>วิธีเล่น:</strong> คลิกที่กลองให้เร็วที่สุดภายใน 30 วินาที!
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <strong>เป้าหมาย:</strong> ได้คะแนนมากที่สุดและชนะรางวัลพิเศษ!
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div>
+                                <strong>กติกา:</strong> เล่นได้เพียงครั้งเดียวต่อวัน
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="drum-container">
+                        <div class="drum" id="drum" onclick="drumHit(event)">
+                            <div class="drum-head">
+                                <div class="drum-center"></div>
+                            </div>
+                            <div class="music-notes" id="musicNotes"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="score-panel">
+                        <div class="score-grid">
+                            <div class="score-item">
+                                <div class="score-label">คะแนน</div>
+                                <div class="score-value" id="score">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-label">เวลา</div>
+                                <div class="score-value" id="timer">30</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="game-button" id="startBtn" onclick="startGame()">
+                        <i class="fas fa-play"></i>
+                        เริ่มเกมส์
+                    </button>
+                    <button class="game-button primary hidden" id="submitBtn" onclick="showEmailModal()">
+                        <i class="fas fa-save"></i>
+                        บันทึกคะแนน
+                    </button>
+                    <button class="game-button secondary hidden" id="playAgainBtn" onclick="showDashboard()">
+                        <i class="fas fa-chart-bar"></i>
+                        ดูสถิติ
+                    </button>
                 </div>
-                
-                <div class="instruction-card">
-                    <div class="instruction-item">
-                        <div class="instruction-icon">
-                            <i class="fas fa-mouse-pointer"></i>
-                        </div>
-                        <div>
-                            <strong>วิธีเล่น:</strong> คลิกที่กลองให้เร็วที่สุดภายใน 30 วินาที!
-                        </div>
-                    </div>
-                    <div class="instruction-item">
-                        <div class="instruction-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div>
-                            <strong>เป้าหมาย:</strong> ได้คะแนนมากที่สุดและชนะรางวัลพิเศษ!
-                        </div>
-                    </div>
-                    <div class="instruction-item">
-                        <div class="instruction-icon">
-                            <i class="fas fa-calendar-day"></i>
-                        </div>
-                        <div>
-                            <strong>กติกา:</strong> เล่นได้เพียงครั้งเดียวต่อวัน
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="drum-container">
-                    <div class="drum" id="drum" onclick="drumHit(event)">
-                        <div class="drum-head">
-                            <div class="drum-center"></div>
-                        </div>
-                        <div class="music-notes" id="musicNotes"></div>
-                    </div>
-                </div>
-                
-                <div class="score-panel">
-                    <div class="score-grid">
-                        <div class="score-item">
-                            <div class="score-label">คะแนน</div>
-                            <div class="score-value" id="score">0</div>
-                        </div>
-                        <div class="score-item">
-                            <div class="score-label">เวลา</div>
-                            <div class="score-value" id="timer">30</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="game-button" id="startBtn" onclick="startGame()">
-                    <i class="fas fa-play"></i>
-                    เริ่มเกมส์
-                </button>
-                <button class="game-button primary hidden" id="submitBtn" onclick="showEmailModal()">
-                    <i class="fas fa-save"></i>
-                    บันทึกคะแนน
-                </button>
-                <button class="game-button secondary hidden" id="playAgainBtn" onclick="showDashboard()">
-                    <i class="fas fa-chart-bar"></i>
-                    ดูสถิติ
-                </button>
             </div>
         </div>
     </div>
@@ -903,7 +929,7 @@
             }).catch((err) => {
                 console.error('LIFF initialization failed', err);
                 document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcmนาล_กif_บย_id&ct=g/ZXkraFrlIW1D25M6ZJ/giphy.gif';
                 checkDailyLimit();
             });
         }
@@ -922,19 +948,19 @@
                 // รีเซ็ตสถานะการเล่น
                 hasPlayedToday = false;
                 
+                // แสดงปุ่มสถิติ
+                document.getElementById('statsButton').style.display = 'inline-flex';
+                
                 // ซ่อนการแจ้งเตือนหลังจาก 3 วินาที
                 setTimeout(() => {
                     notification.classList.remove('show');
                 }, 3000);
                 
-                // รีเฟรชหน้าเว็บ (optional)
-                // window.location.reload();
-                
                 console.log('LocalStorage cleared for testing');
             }
         }
 
-        // ส่วนที่เหลือของฟังก์ชันเกม
+        // ฟังก์ชันตรวจสอบว่าผู้ใช้เคยเล่นวันนี้แล้วหรือไม่
         function checkDailyLimit() {
             const today = new Date().toDateString();
             const userId = userProfile.userId || 'guest';
@@ -942,14 +968,23 @@
 
             if (userLastPlay === today) {
                 hasPlayedToday = true;
-                showDailyLimitNotice();
+                showAlreadyPlayedNotice();
             } else {
                 hasPlayedToday = false;
+                hideAlreadyPlayedNotice();
             }
         }
 
-        function showDailyLimitNotice() {
-            document.getElementById('dailyLimitNotice').classList.remove('hidden');
+        // ฟังก์ชันแสดงข้อความว่าเคยเล่นแล้ว
+        function showAlreadyPlayedNotice() {
+            document.getElementById('alreadyPlayedNotice').classList.remove('hidden');
+            document.getElementById('gameElements').classList.add('hidden');
+        }
+
+        // ฟังก์ชันซ่อนข้อความว่าเคยเล่นแล้ว
+        function hideAlreadyPlayedNotice() {
+            document.getElementById('alreadyPlayedNotice').classList.add('hidden');
+            document.getElementById('gameElements').classList.remove('hidden');
         }
 
         function showDashboard() {
@@ -1226,6 +1261,9 @@
 
                 showCelebration('<i class="fas fa-check-circle"></i> บันทึกคะแนนเรียบร้อย!');
 
+                // หลังจากบันทึกคะแนนแล้ว ให้แสดงข้อความว่าเล่นแล้ว
+                showAlreadyPlayedNotice();
+
                 setTimeout(() => {
                     if (liff.isInClient()) {
                         liff.closeWindow();
@@ -1377,4 +1415,3 @@
     </script>
 </body>
 </html>
-
