@@ -546,7 +546,6 @@
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
     </div>
-
     <div class="container">
         <!-- หน้าตรวจสอบตำแหน่ง location -->
         <div id="locationCheck" class="location-check-card">
@@ -567,9 +566,11 @@
                 <button id="retryLocation" class="game-button secondary">
                     <i class="fas fa-sync-alt"></i> ลองอีกครั้ง
                 </button>
+                <button id="continueAnyway" class="game-button primary hidden">
+                    <i class="fas fa-play"></i> เล่นต่อไป
+                </button>
             </div>
         </div>
-
         <!-- เนื้อหาเกม (จะถูกแสดงหลังจากตรวจสอบระยะทางผ่านแล้ว) -->
         <div id="gameContent" class="hidden">
             <div class="profile-header">
@@ -581,7 +582,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="game-container">
                 <div class="daily-limit-notice hidden" id="dailyLimitNotice">
                     <h3><i class="fas fa-clock"></i> คุณได้เล่นแล้ววันนี้</h3>
@@ -591,7 +591,7 @@
                         ดูสถิติ
                     </button>
                 </div>
-                
+
                 <div class="game-header">
                     <h1 class="game-title">
                         <i class="fas fa-drum"></i>
@@ -599,7 +599,7 @@
                     </h1>
                     <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
                 </div>
-                
+
                 <div class="instruction-card">
                     <div class="instruction-item">
                         <div class="instruction-icon">
@@ -626,7 +626,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="drum-container">
                     <div class="drum" id="drum" onclick="drumHit(event)">
                         <div class="drum-head">
@@ -635,7 +635,7 @@
                         <div class="music-notes" id="musicNotes"></div>
                     </div>
                 </div>
-                
+
                 <div class="score-panel">
                     <div class="score-grid">
                         <div class="score-item">
@@ -648,7 +648,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <button class="game-button" id="startBtn" onclick="startGame()">
                     <i class="fas fa-play"></i>
                     เริ่มเกมส์
@@ -664,16 +664,15 @@
             </div>
         </div>
     </div>
-
     <div class="celebration" id="celebration"></div>
-    
+
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="spinner"></div>
             <div><i class="fas fa-database"></i> กำลังบันทึกข้อมูล...</div>
         </div>
     </div>
-    
+
     <div class="email-modal" id="emailModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -697,17 +696,16 @@
             </div>
         </div>
     </div>
-
     <script>
         // พิกัดสถานที่ออกบูธ (ตัวอย่าง: ตั้งค่าเป็นสยามพารากอน)
         const VENUE_LOCATION = {
             latitude: 18.897470,
             longitude: 99.043320
         };
-        
+
         // ระยะทางสูงสุดที่อนุญาต (เมตร)
         const MAX_DISTANCE = 500;
-        
+
         let gameActive = false;
         let score = 0;
         let timeLeft = 30;
@@ -715,15 +713,16 @@
         let userProfile = {};
         let hasPlayedToday = false;
         let userLocation = null;
+        let isLocationVerified = false;
 
         // ฟังก์ชันคำนวณระยะทางระหว่างสองพิกัด (Haversine formula)
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371000; // รัศมีของโลกในหน่วยเมตร
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = 
+            const a =
                 Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
                 Math.sin(dLon/2) * Math.sin(dLon/2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             const distance = R * c;
@@ -750,7 +749,7 @@
                     };
 
                     const distance = calculateDistance(
-                        userLocation.latitude, 
+                        userLocation.latitude,
                         userLocation.longitude,
                         VENUE_LOCATION.latitude,
                         VENUE_LOCATION.longitude
@@ -762,6 +761,7 @@
 
                     if (distance <= MAX_DISTANCE) {
                         // อยู่ภายในระยะที่กำหนด
+                        isLocationVerified = true;
                         setTimeout(() => {
                             document.getElementById('locationCheck').classList.add('hidden');
                             document.getElementById('gameContent').classList.remove('hidden');
@@ -770,19 +770,15 @@
                     } else {
                         // อยู่ไกลเกินไป
                         showLocationError(`คุณอยู่ห่างจากบูธ ${Math.round(distance)} เมตร ซึ่งเกินระยะที่อนุญาต (${MAX_DISTANCE} เมตร)`);
-                        
-                        // ปิด LIFF ถ้าเปิดใน LINE
-                        if (typeof liff !== 'undefined' && liff.isInClient()) {
-                            setTimeout(() => {
-                                liff.closeWindow();
-                            }, 5000);
-                        }
+
+                        // แสดงปุ่มเล่นต่อไป
+                        document.getElementById('continueAnyway').classList.remove('hidden');
                     }
                 },
                 error => {
                     document.getElementById('locationSpinner').classList.add('hidden');
                     let errorMessage = "ไม่สามารถระบุตำแหน่งของคุณได้";
-                    
+
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
                             errorMessage = "คุณไม่ได้อนุญาตให้เข้าถึงตำแหน่ง";
@@ -794,8 +790,11 @@
                             errorMessage = "การระบุตำแหน่งใช้เวลานานเกินไป";
                             break;
                     }
-                    
+
                     showLocationError(errorMessage);
+
+                    // แสดงปุ่มเล่นต่อไป
+                    document.getElementById('continueAnyway').classList.remove('hidden');
                 },
                 {
                     enableHighAccuracy: true,
@@ -825,9 +824,17 @@
             }).catch((err) => {
                 console.error('LIFF initialization failed', err);
                 document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
                 checkDailyLimit();
             });
+        }
+
+        // ฟังก์ชันเริ่มเกมโดยไม่ต้องตรวจสอบตำแหน่ง
+        function continueWithoutLocation() {
+            isLocationVerified = true;
+            document.getElementById('locationCheck').classList.add('hidden');
+            document.getElementById('gameContent').classList.remove('hidden');
+            initializeGame();
         }
 
         // ส่วนที่เหลือของฟังก์ชันเกม (เหมือนเดิม)
@@ -1265,11 +1272,13 @@
         window.onload = function() {
             // เพิ่ม event listener สำหรับปุ่มลองอีกครั้ง
             document.getElementById('retryLocation').addEventListener('click', checkUserLocation);
-            
+
+            // เพิ่ม event listener สำหรับปุ่มเล่นต่อไป
+            document.getElementById('continueAnyway').addEventListener('click', continueWithoutLocation);
+
             // เริ่มการตรวจสอบตำแหน่ง
             checkUserLocation();
         };
     </script>
 </body>
 </html>
-
