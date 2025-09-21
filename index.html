@@ -84,6 +84,114 @@
             justify-content: center;
             min-height: 100vh;
         }
+        .location-check-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        .location-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        .location-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .location-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .location-distance {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(96, 165, 250, 0.2);
+            border-radius: 15px;
+            border: 1px solid var(--accent-color);
+        }
+        .location-success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .location-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .game-button {
+            background: var(--secondary-gradient);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            font-family: 'Kanit', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .game-button:active {
+            transform: translateY(-1px);
+        }
+        .game-button.primary {
+            background: var(--success-color);
+        }
+        .game-button.secondary {
+            background: var(--warning-color);
+        }
+        .game-button.error {
+            background: var(--error-color);
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none !important;
+        }
+        #gameContent {
+            width: 100%;
+            max-width: 500px;
+        }
         .profile-header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -92,7 +200,6 @@
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
             border-radius: 20px;
             margin-bottom: 20px;
         }
@@ -132,8 +239,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            max-width: 500px;
-            margin: 0 auto;
             width: 100%;
         }
         .game-header {
@@ -275,36 +380,6 @@
             font-weight: 700;
             color: var(--accent-color);
         }
-        .game-button {
-            background: var(--secondary-gradient);
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: white;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            font-family: 'Kanit', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .game-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        .game-button:active {
-            transform: translateY(-1px);
-        }
-        .game-button.primary {
-            background: var(--success-color);
-        }
-        .game-button.secondary {
-            background: var(--warning-color);
-        }
         .celebration {
             position: fixed;
             top: 50%;
@@ -350,19 +425,6 @@
             text-align: center;
             border: 1px solid var(--glass-border);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         .email-modal {
             display: none;
@@ -479,6 +541,9 @@
             .game-container {
                 padding: 20px 15px;
             }
+            .location-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -490,7 +555,34 @@
     </div>
 
     <div class="container">
-        <div id="gameContent">
+        <!-- หน้าตรวจสอบตำแหน่ง location -->
+        <div id="locationCheck" class="location-check-card">
+            <div class="spinner" id="locationSpinner"></div>
+            <div class="location-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h2 class="location-title">กำลังตรวจสอบตำแหน่ง</h2>
+            <p class="location-description">เรากำลังตรวจสอบว่าคุณอยู่ใกล้กับบูธของเราหรือไม่</p>
+            <div id="locationDistance" class="location-distance hidden">
+                ระยะทางจากบูธ: <span id="distanceValue">0</span> เมตร
+            </div>
+            <div id="locationSuccess" class="location-success hidden">
+                <i class="fas fa-check-circle"></i>
+                <span id="successMessage">คุณอยู่ในระยะที่อนุญาตแล้ว!</span>
+            </div>
+            <div id="locationError" class="location-error hidden">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorMessage"></span>
+            </div>
+            <div id="locationActions" class="hidden">
+                <button id="retryLocation" class="game-button secondary">
+                    <i class="fas fa-sync-alt"></i> ลองอีกครั้ง
+                </button>
+            </div>
+        </div>
+
+        <!-- เนื้อหาเกม (จะถูกแสดงหลังจากตรวจสอบระยะทางผ่านแล้ว) -->
+        <div id="gameContent" class="hidden">
             <div class="profile-header">
                 <div class="profile-info">
                     <img id="profilePic" class="profile-pic" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif" alt="Profile">
@@ -510,7 +602,7 @@
                         ดูสถิติ
                     </button>
                 </div>
-
+                
                 <div class="game-header">
                     <h1 class="game-title">
                         <i class="fas fa-drum"></i>
@@ -518,7 +610,7 @@
                     </h1>
                     <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
                 </div>
-
+                
                 <div class="instruction-card">
                     <div class="instruction-item">
                         <div class="instruction-icon">
@@ -545,7 +637,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="drum-container">
                     <div class="drum" id="drum" onclick="drumHit(event)">
                         <div class="drum-head">
@@ -554,7 +646,7 @@
                         <div class="music-notes" id="musicNotes"></div>
                     </div>
                 </div>
-
+                
                 <div class="score-panel">
                     <div class="score-grid">
                         <div class="score-item">
@@ -567,7 +659,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <button class="game-button" id="startBtn" onclick="startGame()">
                     <i class="fas fa-play"></i>
                     เริ่มเกมส์
@@ -585,14 +677,14 @@
     </div>
 
     <div class="celebration" id="celebration"></div>
-
+    
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="spinner"></div>
             <div><i class="fas fa-database"></i> กำลังบันทึกข้อมูล...</div>
         </div>
     </div>
-
+    
     <div class="email-modal" id="emailModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -618,16 +710,145 @@
     </div>
 
     <script>
+        // พิกัดสถานที่ออกบูธ (ตัวอย่าง: ตั้งค่าเป็นสยามพารากอน)
+        const VENUE_LOCATION = {
+            latitude: 13.7466,
+            longitude: 100.5331
+        };
+        
+        // ระยะทางสูงสุดที่อนุญาต (เมตร)
+        const MAX_DISTANCE = 500;
+        
         let gameActive = false;
         let score = 0;
         let timeLeft = 30;
         let gameTimer;
         let userProfile = {};
         let hasPlayedToday = false;
+        let userLocation = null;
 
-        // ฟังก์ชันตรวจสอบว่าผู้เล่นได้เล่นแล้ววันนี้หรือไม่
+        // ฟังก์ชันคำนวณระยะทางระหว่างสองพิกัด (Haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // รัศมีของโลกในหน่วยเมตร
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+            return distance;
+        }
+
+        // ฟังก์ชันตรวจสอบตำแหน่ง
+        function checkUserLocation() {
+            if (!navigator.geolocation) {
+                showLocationError("เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง");
+                return;
+            }
+
+            document.getElementById('locationSpinner').classList.remove('hidden');
+            document.getElementById('locationError').classList.add('hidden');
+            document.getElementById('locationSuccess').classList.add('hidden');
+            document.getElementById('locationDistance').classList.add('hidden');
+            document.getElementById('locationActions').classList.add('hidden');
+
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    userLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+
+                    const distance = calculateDistance(
+                        userLocation.latitude, 
+                        userLocation.longitude,
+                        VENUE_LOCATION.latitude,
+                        VENUE_LOCATION.longitude
+                    );
+
+                    document.getElementById('locationSpinner').classList.add('hidden');
+                    document.getElementById('locationDistance').classList.remove('hidden');
+                    document.getElementById('distanceValue').textContent = Math.round(distance);
+
+                    if (distance <= MAX_DISTANCE) {
+                        // อยู่ภายในระยะที่กำหนด
+                        document.getElementById('locationSuccess').classList.remove('hidden');
+                        document.getElementById('successMessage').textContent = `คุณอยู่ในระยะที่อนุญาต (${Math.round(distance)} เมตร)`;
+                        
+                        setTimeout(() => {
+                            document.getElementById('locationCheck').classList.add('hidden');
+                            document.getElementById('gameContent').classList.remove('hidden');
+                            initializeGame();
+                        }, 2000);
+                    } else {
+                        // อยู่ไกลเกินไป
+                        showLocationError(`คุณอยู่ห่างจากบูธ ${Math.round(distance)} เมตร ซึ่งเกินระยะที่อนุญาต (${MAX_DISTANCE} เมตร)`);
+                        
+                        // ปิด LIFF ถ้าเปิดใน LINE
+                        if (typeof liff !== 'undefined' && liff.isInClient()) {
+                            setTimeout(() => {
+                                liff.closeWindow();
+                            }, 5000);
+                        }
+                    }
+                },
+                error => {
+                    document.getElementById('locationSpinner').classList.add('hidden');
+                    let errorMessage = "ไม่สามารถระบุตำแหน่งของคุณได้";
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = "คุณไม่ได้อนุญาตให้เข้าถึงตำแหน่ง";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = "ไม่สามารถระบุตำแหน่งได้";
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = "การระบุตำแหน่งใช้เวลานานเกินไป";
+                            break;
+                    }
+                    
+                    showLocationError(errorMessage);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        // ฟังก์ชันแสดงข้อผิดพลาดตำแหน่ง
+        function showLocationError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('locationError').classList.remove('hidden');
+            document.getElementById('locationActions').classList.remove('hidden');
+        }
+
+        // ฟังก์ชันเริ่มต้นเกมหลังจากตรวจสอบตำแหน่งแล้ว
+        function initializeGame() {
+            liff.init({
+                liffId: "2008150958-lezrMz2x"
+            }).then(() => {
+                if (liff.isLoggedIn()) {
+                    getUserProfile();
+                } else {
+                    liff.login();
+                }
+            }).catch((err) => {
+                console.error('LIFF initialization failed', err);
+                document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcmนัลF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                checkDailyLimit();
+            });
+        }
+
+        // ส่วนที่เหลือของฟังก์ชันเกม
         function checkDailyLimit() {
             const today = new Date().toDateString();
+            const lastPlayDate = localStorage.getItem('lastPlayDate');
             const userId = userProfile.userId || 'guest';
             const userLastPlay = localStorage.getItem(`lastPlay_${userId}`);
 
@@ -639,13 +860,10 @@
             }
         }
 
-        // ฟังก์ชันแสดงหน้าจอแจ้งเตือนเมื่อเล่นครบแล้ววันนี้
         function showDailyLimitNotice() {
             document.getElementById('dailyLimitNotice').classList.remove('hidden');
-            document.getElementById('startBtn').classList.add('hidden');
         }
 
-        // ฟังก์ชันแสดงหน้าดูสถิติ
         function showDashboard() {
             const dashboardUrl = createDashboardUrl();
             if (liff.isInClient()) {
@@ -658,7 +876,6 @@
             }
         }
 
-        // ฟังก์ชันสร้างเอฟเฟกต์ดนตรี
         function createMusicSplash(x, y) {
             const musicIcons = ['♪', '♫', '🎵', '🎶', '🥁', '🎸'];
             const splashCount = Math.random() * 8 + 5;
@@ -687,7 +904,6 @@
             }
         }
 
-        // ฟังก์ชันสร้างโน้ตดนตรี
         function createMusicNote() {
             const musicNotes = document.getElementById('musicNotes');
             const note = document.createElement('div');
@@ -712,7 +928,6 @@
             }, 1500);
         }
 
-        // ฟังก์ชันดึงข้อมูลโปรไฟล์ผู้ใช้
         function getUserProfile() {
             liff.getProfile().then(profile => {
                 userProfile = profile;
@@ -729,7 +944,6 @@
             });
         }
 
-        // ฟังก์ชันดึงอีเมลจาก LINE
         function getLineEmail() {
             try {
                 if (liff.getDecodedIDToken) {
@@ -744,14 +958,11 @@
             }
         }
 
-        // ฟังก์ชันเริ่มเกม
         function startGame() {
-            // ตรวจสอบว่าผู้เล่นได้เล่นแล้ววันนี้หรือไม่
             if (hasPlayedToday) {
                 showCelebration('<i class="fas fa-exclamation-triangle"></i> คุณได้เล่นแล้ววันนี้');
                 return;
             }
-
             gameActive = true;
             score = 0;
             timeLeft = 30;
@@ -772,7 +983,6 @@
             }, 1000);
         }
 
-        // ฟังก์ชันเมื่อตีกลอง
         function drumHit(event) {
             if (!gameActive) return;
 
@@ -795,7 +1005,6 @@
             showCelebration(getRandomIcon());
         }
 
-        // ฟังก์ชันเมื่อเกมจบ
         function endGame() {
             gameActive = false;
             clearInterval(gameTimer);
@@ -806,13 +1015,11 @@
             showCelebration('<i class="fas fa-trophy"></i> เกมส์จบแล้ว! คะแนน: ' + score);
         }
 
-        // ฟังก์ชันอัปเดตคะแนนและเวลา
         function updateDisplay() {
             document.getElementById('score').textContent = score;
             document.getElementById('timer').textContent = timeLeft;
         }
 
-        // ฟังก์ชันแสดงเอฟเฟกต์ฉลอง
         function showCelebration(html) {
             const celebration = document.getElementById('celebration');
             celebration.innerHTML = html;
@@ -822,7 +1029,6 @@
             }, 1200);
         }
 
-        // ฟังก์ชันสุ่มไอคอนสำหรับเอฟเฟกต์
         function getRandomIcon() {
             const icons = [
                 '<i class="fas fa-drum"></i>',
@@ -835,7 +1041,6 @@
             return icons[Math.floor(Math.random() * icons.length)];
         }
 
-        // ฟังก์ชันรีเซ็ตเกม
         function resetGame() {
             score = 0;
             timeLeft = 30;
@@ -848,7 +1053,6 @@
             updateDisplay();
         }
 
-        // ฟังก์ชันแสดงหน้าต่างกรอกอีเมล
         function showEmailModal() {
             document.getElementById('emailModal').style.display = 'block';
 
@@ -877,26 +1081,35 @@
             }
         }
 
-        // ฟังก์ชันปิดหน้าต่างกรอกอีเมล
         function hideEmailModal() {
             document.getElementById('emailModal').style.display = 'none';
             submitScore('');
         }
 
-        // ฟังก์ชันตรวจสอบรูปแบบอีเมล
+        function submitWithEmail() {
+            const email = document.getElementById('emailInput').value;
+            if (email && !isValidEmail(email)) {
+                showCelebration('<i class="fas fa-exclamation-triangle"></i> กรุณากรอกอีเมลที่ถูกต้อง');
+                return;
+            }
+
+            document.getElementById('emailModal').style.display = 'none';
+            submitScore(email);
+        }
+
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
 
-        // ฟังก์ชันส่งคะแนน
         function submitScore(email = '') {
             document.getElementById('loadingOverlay').style.display = 'block';
 
+            // เพิ่ม profilePic ใน gameData
             const gameData = {
                 uid: userProfile.userId || 'test-user-' + Date.now(),
                 name: userProfile.displayName || 'ผู้ใช้ทดสอบ',
-                profilePic: userProfile.pictureUrl || '',
+                profilePic: userProfile.pictureUrl || '', // เพิ่ม URL รูปโปรไฟล์
                 email: email,
                 score: score,
                 timestamp: new Date().toISOString()
@@ -938,7 +1151,6 @@
             });
         }
 
-        // ฟังก์ชันส่งข้อความ Flex Message
         function sendFlexMessage(data) {
             if (!liff.isInClient()) return;
 
@@ -1000,7 +1212,7 @@
                                         contents: [
                                             {
                                                 type: "text",
-                                                text: "คะแนน:",
+                                                text: "คะแนن:",
                                                 color: "#aaaaaa",
                                                 size: "sm",
                                                 flex: 2
@@ -1058,28 +1270,18 @@
                 });
         }
 
-        // ฟังก์ชันสร้าง URL สำหรับหน้าดูสถิติ
         function createDashboardUrl() {
             const baseUrl = window.location.href.replace(/\/[^\/]*$/, '/dashboard.html');
             return baseUrl + '?uid=' + encodeURIComponent(userProfile.userId || 'test-user');
         }
 
-        // เริ่มต้นเมื่อโหลดหน้าเว็บ
+        // เริ่มต้นการตรวจสอบตำแหน่งเมื่อโหลดหน้าเว็บ
         window.onload = function() {
-            liff.init({
-                liffId: "2008150958-lezrMz2x"
-            }).then(() => {
-                if (liff.isLoggedIn()) {
-                    getUserProfile();
-                } else {
-                    liff.login();
-                }
-            }).catch((err) => {
-                console.error('LIFF initialization failed', err);
-                document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
-                checkDailyLimit();
-            });
+            // เพิ่ม event listener สำหรับปุ่มลองอีกครั้ง
+            document.getElementById('retryLocation').addEventListener('click', checkUserLocation);
+            
+            // เริ่มการตรวจสอบตำแหน่ง
+            checkUserLocation();
         };
     </script>
 </body>
