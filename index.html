@@ -368,6 +368,10 @@
         }
         .score-item {
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
         }
         .score-label {
             font-size: 0.9em;
@@ -530,6 +534,45 @@
             margin: 20px 0;
             text-align: center;
         }
+        .clear-storage-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-family: 'Kanit', sans-serif;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .clear-storage-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+        .clear-notification {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .clear-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
         @media (max-width: 480px) {
             .game-title {
                 font-size: 2em;
@@ -543,6 +586,17 @@
             }
             .location-title {
                 font-size: 1.5rem;
+            }
+            .clear-storage-btn {
+                bottom: 10px;
+                right: 10px;
+                font-size: 0.7em;
+                padding: 8px 12px;
+            }
+            .clear-notification {
+                bottom: 50px;
+                right: 10px;
+                font-size: 0.8em;
             }
         }
     </style>
@@ -709,11 +763,20 @@
         </div>
     </div>
 
+    <!-- ปุ่มเคลียร์ LocalStorage -->
+    <button class="clear-storage-btn" id="clearStorageBtn">
+        <i class="fas fa-trash-alt"></i> เคลียร์ข้อมูลทดสอบ
+    </button>
+
+    <div class="clear-notification" id="clearNotification">
+        <i class="fas fa-check-circle"></i> เคลียร์ข้อมูลเรียบร้อยแล้ว
+    </div>
+
     <script>
         // พิกัดสถานที่ออกบูธ (ตัวอย่าง: ตั้งค่าเป็นสยามพารากอน)
         const VENUE_LOCATION = {
-            latitude: 18.897470,
-            longitude: 99.043320
+            latitude: 13.7466,
+            longitude: 100.5331
         };
         
         // ระยะทางสูงสุดที่อนุญาต (เมตร)
@@ -840,15 +903,40 @@
             }).catch((err) => {
                 console.error('LIFF initialization failed', err);
                 document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcmนัลF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
                 checkDailyLimit();
             });
+        }
+
+        // ฟังก์ชันเคลียร์ LocalStorage
+        function clearLocalStorage() {
+            // แสดงการยืนยันก่อนลบ
+            if (confirm('คุณแน่ใจว่าต้องการลบข้อมูลการเล่นเกมทั้งหมดใช่หรือไม่?')) {
+                // ลบข้อมูลทั้งหมดใน LocalStorage
+                localStorage.clear();
+                
+                // แสดงการแจ้งเตือน
+                const notification = document.getElementById('clearNotification');
+                notification.classList.add('show');
+                
+                // รีเซ็ตสถานะการเล่น
+                hasPlayedToday = false;
+                
+                // ซ่อนการแจ้งเตือนหลังจาก 3 วินาที
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+                
+                // รีเฟรชหน้าเว็บ (optional)
+                // window.location.reload();
+                
+                console.log('LocalStorage cleared for testing');
+            }
         }
 
         // ส่วนที่เหลือของฟังก์ชันเกม
         function checkDailyLimit() {
             const today = new Date().toDateString();
-            const lastPlayDate = localStorage.getItem('lastPlayDate');
             const userId = userProfile.userId || 'guest';
             const userLastPlay = localStorage.getItem(`lastPlay_${userId}`);
 
@@ -1156,7 +1244,7 @@
 
             const flexMessage = {
                 type: "flex",
-                altText: "ผลการเล่นเกมส์ตีกลอง",
+                altText: "ผลการเล่นเกмส์ตีกลอง",
                 contents: {
                     type: "bubble",
                     hero: {
@@ -1212,7 +1300,7 @@
                                         contents: [
                                             {
                                                 type: "text",
-                                                text: "คะแนن:",
+                                                text: "คะแนน:",
                                                 color: "#aaaaaa",
                                                 size: "sm",
                                                 flex: 2
@@ -1280,10 +1368,12 @@
             // เพิ่ม event listener สำหรับปุ่มลองอีกครั้ง
             document.getElementById('retryLocation').addEventListener('click', checkUserLocation);
             
+            // เพิ่ม event listener สำหรับปุ่มเคลียร์ localStorage
+            document.getElementById('clearStorageBtn').addEventListener('click', clearLocalStorage);
+            
             // เริ่มการตรวจสอบตำแหน่ง
             checkUserLocation();
         };
     </script>
 </body>
 </html>
-
