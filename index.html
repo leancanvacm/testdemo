@@ -9,24 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
-            --secondary-gradient: linear-gradient(45deg, #888888, #555555);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            --secondary-gradient: linear-gradient(45deg, #60a5fa, #3b82f6);
+            --glass-bg: rgba(59, 130, 246, 0.1);
+            --glass-border: rgba(59, 130, 246, 0.2);
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.8);
-            --accent-color: #cccccc;
-            --success-color: #aaaaaa;
-            --error-color: #888888;
-            --warning-color: #999999;
+            --accent-color: #60a5fa;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Kanit', sans-serif;
             background: var(--primary-gradient);
@@ -36,7 +34,6 @@
             color: var(--text-primary);
             overflow-x: hidden;
         }
-
         .background-decoration {
             position: fixed;
             top: 0;
@@ -46,14 +43,12 @@
             pointer-events: none;
             z-index: -1;
         }
-
         .bg-circle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(59, 130, 246, 0.05);
             animation: float 6s ease-in-out infinite;
         }
-
         .bg-circle:nth-child(1) {
             width: 200px;
             height: 200px;
@@ -61,7 +56,6 @@
             left: -5%;
             animation-delay: 0s;
         }
-
         .bg-circle:nth-child(2) {
             width: 150px;
             height: 150px;
@@ -69,7 +63,6 @@
             right: -5%;
             animation-delay: 2s;
         }
-
         .bg-circle:nth-child(3) {
             width: 100px;
             height: 100px;
@@ -77,12 +70,10 @@
             right: 20%;
             animation-delay: 4s;
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
-
         .profile-header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -91,7 +82,6 @@
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
         .profile-info {
             display: flex;
             align-items: center;
@@ -100,7 +90,6 @@
             max-width: 400px;
             margin: 0 auto;
         }
-
         .profile-pic {
             width: 60px;
             height: 60px;
@@ -109,24 +98,20 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
-
         .profile-pic:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-
         .profile-details h3 {
             font-weight: 600;
             font-size: 1.1em;
             margin-bottom: 5px;
         }
-
         .profile-details p {
             font-size: 0.9em;
             opacity: 0.8;
             font-weight: 300;
         }
-
         .game-container {
             flex: 1;
             padding: 30px 20px;
@@ -138,11 +123,9 @@
             margin: 0 auto;
             width: 100%;
         }
-
         .game-header {
             margin-bottom: 30px;
         }
-
         .game-title {
             font-size: 2.5em;
             font-weight: 700;
@@ -153,14 +136,12 @@
             justify-content: center;
             gap: 15px;
         }
-
         .game-subtitle {
             font-size: 1.1em;
             opacity: 0.9;
             font-weight: 300;
             margin-bottom: 20px;
         }
-
         .instruction-card {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -170,7 +151,6 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
-
         .instruction-item {
             display: flex;
             align-items: center;
@@ -178,7 +158,6 @@
             margin: 15px 0;
             font-size: 0.95em;
         }
-
         .instruction-icon {
             width: 40px;
             height: 40px;
@@ -190,7 +169,6 @@
             color: white;
             font-size: 1.2em;
         }
-
         .drum-container {
             position: relative;
             width: 250px;
@@ -198,73 +176,64 @@
             margin: 30px auto;
             perspective: 1000px;
         }
-
         .drum {
             width: 100%;
             height: 100%;
-            background: #333333;
+            background: #1e3a8a;
             border-radius: 50%;
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
             transform-style: preserve-3d;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 5px solid #555555;
+            border: 5px solid #3b82f6;
             overflow: hidden;
         }
-
         .drum:hover {
             transform: scale(1.03);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
         .drum:active {
             transform: scale(0.98);
         }
-
         .drum-head {
             position: absolute;
             top: 10px;
             left: 10px;
             right: 10px;
             bottom: 10px;
-            background: #222222;
+            background: #1e40af;
             border-radius: 50%;
-            border: 3px solid #777777;
+            border: 3px solid #60a5fa;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
         }
-
         .drum-center {
             width: 50%;
             height: 50%;
-            background: #111111;
+            background: #0f172a;
             border-radius: 50%;
-            border: 2px solid #777777;
+            border: 2px solid #60a5fa;
         }
-
         .music-notes {
             position: absolute;
             width: 100%;
             height: 100%;
             pointer-events: none;
         }
-
         .music-note {
             position: absolute;
             font-size: 1.5em;
             opacity: 0;
             animation: musicNote 1.5s ease-out forwards;
         }
-
         @keyframes musicNote {
             0% { transform: scale(0) rotate(0deg); opacity: 0; }
             50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
             100% { transform: scale(1) rotate(360deg); opacity: 0; }
         }
-
         .score-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -274,30 +243,25 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
-
         .score-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
-
         .score-item {
             text-align: center;
         }
-
         .score-label {
             font-size: 0.9em;
             opacity: 0.8;
             margin-bottom: 5px;
             font-weight: 300;
         }
-
         .score-value {
             font-size: 2em;
             font-weight: 700;
             color: var(--accent-color);
         }
-
         .game-button {
             background: var(--secondary-gradient);
             border: none;
@@ -315,24 +279,19 @@
             align-items: center;
             gap: 10px;
         }
-
         .game-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-
         .game-button:active {
             transform: translateY(-1px);
         }
-
         .game-button.primary {
             background: var(--success-color);
         }
-
         .game-button.secondary {
             background: var(--warning-color);
         }
-
         .celebration {
             position: fixed;
             top: 50%;
@@ -346,18 +305,15 @@
             z-index: 1000;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
-
         .celebration.show {
             opacity: 1;
             animation: celebrate 1.2s ease-in-out;
         }
-
         @keyframes celebrate {
             0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); }
             50% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); }
             100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
         }
-
         .loading-overlay {
             display: none;
             position: fixed;
@@ -369,7 +325,6 @@
             z-index: 2000;
             backdrop-filter: blur(5px);
         }
-
         .loading-content {
             position: absolute;
             top: 50%;
@@ -383,7 +338,6 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
-
         .spinner {
             width: 50px;
             height: 50px;
@@ -393,12 +347,10 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         .email-modal {
             display: none;
             position: fixed;
@@ -410,7 +362,6 @@
             z-index: 3000;
             backdrop-filter: blur(5px);
         }
-
         .modal-content {
             position: absolute;
             top: 50%;
@@ -425,18 +376,15 @@
             max-width: 400px;
             width: 90%;
         }
-
         .modal-header {
             text-align: center;
             margin-bottom: 20px;
         }
-
         .modal-title {
             font-size: 1.3em;
             font-weight: 600;
             margin-bottom: 10px;
         }
-
         .email-input {
             width: 100%;
             padding: 15px;
@@ -449,25 +397,21 @@
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
-
         .email-input:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(204, 204, 204, 0.3);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
         }
-
         .email-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
-
         .modal-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-
         .email-status {
-            background: rgba(204, 204, 204, 0.2);
+            background: rgba(96, 165, 250, 0.2);
             border: 1px solid var(--accent-color);
             border-radius: 10px;
             padding: 10px 15px;
@@ -477,13 +421,11 @@
             gap: 10px;
             font-size: 0.9em;
         }
-
         .email-status.success {
-            background: rgba(170, 170, 170, 0.2);
+            background: rgba(16, 185, 129, 0.2);
             border-color: var(--success-color);
             color: var(--success-color);
         }
-
         .music-splash {
             position: fixed;
             pointer-events: none;
@@ -491,7 +433,6 @@
             font-size: 2em;
             animation: splash 2s ease-out forwards;
         }
-
         @keyframes splash {
             0% {
                 transform: scale(0) rotate(0deg);
@@ -506,26 +447,22 @@
                 opacity: 0;
             }
         }
-
         .daily-limit-notice {
-            background: rgba(136, 136, 136, 0.2);
+            background: rgba(239, 68, 68, 0.2);
             border: 1px solid var(--error-color);
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
             text-align: center;
         }
-
         .hidden {
             display: none !important;
         }
-
-        /* สไตล์สำหรับปุ่มเคลียร์ข้อมูลทดสอบ */
         .clear-storage-btn {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(136, 136, 136, 0.2);
+            background: rgba(239, 68, 68, 0.2);
             border: 1px solid var(--error-color);
             color: var(--error-color);
             padding: 10px 15px;
@@ -537,13 +474,10 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
-
         .clear-storage-btn:hover {
-            background: rgba(136, 136, 136, 0.3);
+            background: rgba(239, 68, 68, 0.3);
             transform: translateY(-2px);
         }
-
-        /* สไตล์สำหรับการแจ้งเตือนเมื่อเคลียร์ข้อมูล */
         .clear-notification {
             position: fixed;
             bottom: 70px;
@@ -559,22 +493,18 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
         }
-
         .clear-notification.show {
             opacity: 1;
             transform: translateY(0);
         }
-
         @media (max-width: 480px) {
             .game-title {
                 font-size: 2em;
             }
-            
             .drum-container {
                 width: 200px;
                 height: 200px;
             }
-            
             .game-container {
                 padding: 20px 15px;
             }
@@ -587,7 +517,6 @@
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
     </div>
-
     <div class="profile-header">
         <div class="profile-info">
             <img id="profilePic" class="profile-pic" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif" alt="Profile">
@@ -597,9 +526,7 @@
             </div>
         </div>
     </div>
-
     <div class="game-container">
-        <!-- Daily Limit Notice -->
         <div class="daily-limit-notice hidden" id="dailyLimitNotice">
             <h3><i class="fas fa-clock"></i> คุณได้เล่นแล้ววันนี้</h3>
             <p>คุณสามารถเล่นได้เพียงครั้งเดียวต่อวัน<br>กลับมาเล่นใหม่พรุ่งนี้นะ!</p>
@@ -608,7 +535,6 @@
                 ดูสถิติ
             </button>
         </div>
-
         <div id="gameContent">
             <div class="game-header">
                 <h1 class="game-title">
@@ -617,7 +543,6 @@
                 </h1>
                 <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
             </div>
-
             <div class="instruction-card">
                 <div class="instruction-item">
                     <div class="instruction-icon">
@@ -644,7 +569,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="drum-container">
                 <div class="drum" id="drum" onclick="drumHit(event)">
                     <div class="drum-head">
@@ -653,7 +577,6 @@
                     <div class="music-notes" id="musicNotes"></div>
                 </div>
             </div>
-
             <div class="score-panel">
                 <div class="score-grid">
                     <div class="score-item">
@@ -666,7 +589,6 @@
                     </div>
                 </div>
             </div>
-
             <button class="game-button" id="startBtn" onclick="startGame()">
                 <i class="fas fa-play"></i>
                 เริ่มเกมส์
@@ -681,16 +603,14 @@
             </button>
         </div>
     </div>
-
     <div class="celebration" id="celebration"></div>
-    
+
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="spinner"></div>
             <div><i class="fas fa-database"></i> กำลังบันทึกข้อมูล...</div>
         </div>
     </div>
-
     <div class="email-modal" id="emailModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -714,19 +634,13 @@
             </div>
         </div>
     </div>
-
-    <!-- ปุ่มเคลียร์ข้อมูลทดสอบ -->
     <button class="clear-storage-btn" id="clearStorageBtn">
         <i class="fas fa-trash-alt"></i> เคลียร์ข้อมูลทดสอบ
     </button>
-
-    <!-- การแจ้งเตือนเมื่อเคลียร์ข้อมูล -->
     <div class="clear-notification" id="clearNotification">
         <i class="fas fa-check-circle"></i> เคลียร์ข้อมูลเรียบร้อยแล้ว
     </div>
-
     <script>
-        // Game variables
         let gameActive = false;
         let score = 0;
         let timeLeft = 30;
@@ -734,13 +648,12 @@
         let userProfile = {};
         let hasPlayedToday = false;
 
-        // Check for daily play limit using localStorage
         function checkDailyLimit() {
             const today = new Date().toDateString();
             const lastPlayDate = localStorage.getItem('lastPlayDate');
             const userId = userProfile.userId || 'guest';
             const userLastPlay = localStorage.getItem(`lastPlay_${userId}`);
-            
+
             if (userLastPlay === today) {
                 hasPlayedToday = true;
                 showDailyLimitNotice();
@@ -768,25 +681,23 @@
 
         function createMusicSplash(x, y) {
             const musicIcons = ['♪', '♫', '🎵', '🎶', '🥁', '🎸'];
-            const splashCount = Math.random() * 8 + 5; // 5-12 music notes
-            
+            const splashCount = Math.random() * 8 + 5;
+
             for (let i = 0; i < splashCount; i++) {
                 setTimeout(() => {
                     const splash = document.createElement('div');
                     splash.className = 'music-splash';
                     splash.innerHTML = musicIcons[Math.floor(Math.random() * musicIcons.length)];
-                    
-                    // Random position around click point
+
                     const offsetX = (Math.random() - 0.5) * 200;
                     const offsetY = (Math.random() - 0.5) * 200;
-                    
+
                     splash.style.left = (x + offsetX) + 'px';
                     splash.style.top = (y + offsetY) + 'px';
                     splash.style.fontSize = (Math.random() * 1.5 + 0.5) + 'em';
-                    
+
                     document.body.appendChild(splash);
-                    
-                    // Remove after animation
+
                     setTimeout(() => {
                         if (splash.parentNode) {
                             splash.parentNode.removeChild(splash);
@@ -800,20 +711,19 @@
             const musicNotes = document.getElementById('musicNotes');
             const note = document.createElement('div');
             note.className = 'music-note';
-            
+
             const musicSymbols = ['♪', '♫', '🎵', '🎶'];
             note.innerHTML = musicSymbols[Math.floor(Math.random() * musicSymbols.length)];
-            
+
             const left = Math.random() * 80 + 10;
             const top = Math.random() * 80 + 10;
-            
+
             note.style.left = left + '%';
             note.style.top = top + '%';
             note.style.fontSize = (Math.random() * 1.5 + 1) + 'em';
-            
+
             musicNotes.appendChild(note);
-            
-            // Remove after animation
+
             setTimeout(() => {
                 if (note.parentNode) {
                     note.parentNode.removeChild(note);
@@ -821,7 +731,6 @@
             }, 1500);
         }
 
-        // LINE LIFF initialization
         window.onload = function() {
             liff.init({
                 liffId: "1661009147-LYaZxZeN"
@@ -833,13 +742,11 @@
                 }
             }).catch((err) => {
                 console.error('LIFF initialization failed', err);
-                // Fallback for testing without LINE
                 document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5ałF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
                 checkDailyLimit();
             });
 
-            // เพิ่ม event listener ให้ปุ่มเคลียร์ข้อมูล
             document.getElementById('clearStorageBtn').addEventListener('click', clearLocalStorage);
         };
 
@@ -848,8 +755,7 @@
                 userProfile = profile;
                 document.getElementById('displayName').textContent = profile.displayName;
                 document.getElementById('profilePic').src = profile.pictureUrl || 'https://via.placeholder.com/60x60/333333/ffffff?text=U';
-                
-                // Get email from LINE if available
+
                 getLineEmail();
                 checkDailyLimit();
             }).catch(err => {
@@ -879,21 +785,20 @@
                 showCelebration('<i class="fas fa-exclamation-triangle"></i> คุณได้เล่นแล้ววันนี้');
                 return;
             }
-
             gameActive = true;
             score = 0;
             timeLeft = 30;
-            
+
             document.getElementById('startBtn').classList.add('hidden');
             document.getElementById('submitBtn').classList.add('hidden');
             document.getElementById('playAgainBtn').classList.add('hidden');
-            
+
             updateDisplay();
-            
+
             gameTimer = setInterval(() => {
                 timeLeft--;
                 updateDisplay();
-                
+
                 if (timeLeft <= 0) {
                     endGame();
                 }
@@ -902,37 +807,33 @@
 
         function drumHit(event) {
             if (!gameActive) return;
-            
+
             score++;
             updateDisplay();
-            
-            // Get click position for music splash effect
+
             const rect = event.target.getBoundingClientRect();
             const x = event.clientX;
             const y = event.clientY;
-            
-            // Create music splash effect
+
             createMusicSplash(x, y);
             createMusicNote();
-            
-            // Visual feedback
+
             const drum = document.getElementById('drum');
             drum.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 drum.style.transform = 'scale(1.03)';
             }, 100);
-            
-            // Show celebration
+
             showCelebration(getRandomIcon());
         }
 
         function endGame() {
             gameActive = false;
             clearInterval(gameTimer);
-            
+
             document.getElementById('submitBtn').classList.remove('hidden');
             document.getElementById('playAgainBtn').classList.remove('hidden');
-            
+
             showCelebration('<i class="fas fa-trophy"></i> เกมส์จบแล้ว! คะแนน: ' + score);
         }
 
@@ -966,33 +867,32 @@
             score = 0;
             timeLeft = 30;
             gameActive = false;
-            
+
             document.getElementById('startBtn').classList.remove('hidden');
             document.getElementById('submitBtn').classList.add('hidden');
             document.getElementById('playAgainBtn').classList.add('hidden');
-            
+
             updateDisplay();
         }
 
         function showEmailModal() {
             document.getElementById('emailModal').style.display = 'block';
-            
+
             const emailInput = document.getElementById('emailInput');
             const emailStatus = document.getElementById('emailStatus');
             const emailStatusText = document.getElementById('emailStatusText');
             const modalDescription = document.getElementById('emailModalDescription');
-            
-            // Auto-fill email from LINE if available
+
             if (userProfile.email) {
                 emailInput.value = userProfile.email;
                 emailInput.style.borderColor = 'var(--success-color)';
-                emailInput.style.boxShadow = '0 0 20px rgba(170, 170, 170, 0.3)';
-                
+                emailInput.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.3)';
+
                 emailStatus.style.display = 'flex';
                 emailStatus.className = 'email-status success';
                 emailStatusText.textContent = 'อีเมลจากบัญชี LINE ของคุณ';
                 modalDescription.textContent = 'ตรวจสอบอีเมลและกดยืนยัน';
-                
+
                 setTimeout(() => {
                     const confirmBtn = document.querySelector('.modal-buttons .game-button.primary');
                     if (confirmBtn) confirmBtn.focus();
@@ -1014,7 +914,7 @@
                 showCelebration('<i class="fas fa-exclamation-triangle"></i> กรุณากรอกอีเมลที่ถูกต้อง');
                 return;
             }
-            
+
             document.getElementById('emailModal').style.display = 'none';
             submitScore(email);
         }
@@ -1026,7 +926,7 @@
 
         function submitScore(email = '') {
             document.getElementById('loadingOverlay').style.display = 'block';
-            
+
             const gameData = {
                 uid: userProfile.userId || 'test-user-' + Date.now(),
                 name: userProfile.displayName || 'ผู้ใช้ทดสอบ',
@@ -1035,15 +935,12 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Save daily limit to localStorage
             const today = new Date().toDateString();
             const userId = userProfile.userId || 'guest';
             localStorage.setItem(`lastPlay_${userId}`, today);
             hasPlayedToday = true;
 
-            // Send to Google Apps Script
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbwT8sAUkjODy9J5mFA8xUqoAHAp77KbCCZOIV8VEq5gbieJ4n0KM_0wuN_tbxcQ_LY/exec';
-
             fetch(scriptUrl, {
                 method: 'POST',
                 headers: {
@@ -1055,13 +952,11 @@
             .then(result => {
                 console.log('Data submitted successfully:', result);
                 document.getElementById('loadingOverlay').style.display = 'none';
-                
-                // Send Flex Message
+
                 sendFlexMessage(gameData);
-                
+
                 showCelebration('<i class="fas fa-check-circle"></i> บันทึกคะแนนเรียบร้อย!');
-                
-                // Auto close LIFF after 3 seconds
+
                 setTimeout(() => {
                     if (liff.isInClient()) {
                         liff.closeWindow();
@@ -1077,7 +972,6 @@
 
         function sendFlexMessage(data) {
             if (!liff.isInClient()) return;
-
             const flexMessage = {
                 type: "flex",
                 altText: "ผลการเล่นเกมส์ตีกลอง",
@@ -1184,7 +1078,6 @@
                     }
                 }
             };
-
             liff.sendMessages([flexMessage])
                 .then(() => {
                     console.log('Flex message sent successfully');
@@ -1199,33 +1092,25 @@
             return baseUrl + '?uid=' + encodeURIComponent(userProfile.userId || 'test-user');
         }
 
-        // ฟังก์ชันสำหรับเคลียร์ localStorage
         function clearLocalStorage() {
-            // เก็บ userId ปัจจุบันไว้ก่อน
             const currentUserId = userProfile.userId || 'guest';
-            
-            // ล้าง localStorage ทั้งหมด
+
             localStorage.clear();
-            
-            // แสดงการแจ้งเตือน
+
             const notification = document.getElementById('clearNotification');
             notification.classList.add('show');
-            
-            // ซ่อนการแจ้งเตือนหลังจาก 3 วินาที
+
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
-            
-            // รีเซ็ตสถานะการเล่นเกม
+
             hasPlayedToday = false;
-            
-            // ซ่อนการแจ้งเตือนจำกัดการเล่นและแสดงเนื้อหาเกม
+
             document.getElementById('dailyLimitNotice').classList.add('hidden');
             document.getElementById('gameContent').classList.remove('hidden');
-            
-            // รีเซ็ตเกม
+
             resetGame();
-            
+
             console.log('LocalStorage cleared for testing');
         }
     </script>
