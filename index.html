@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เกมส์เครื่องดื่มสุดสนุก</title>
+    <title>เกมส์ตีกลองสุดสนุก</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            --secondary-gradient: linear-gradient(45deg, #06b6d4, #0284c7);
+            --primary-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
+            --secondary-gradient: linear-gradient(45deg, #888888, #555555);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.8);
-            --accent-color: #22d3ee;
-            --success-color: #10b981;
-            --error-color: #ef4444;
-            --warning-color: #f59e0b;
+            --accent-color: #cccccc;
+            --success-color: #aaaaaa;
+            --error-color: #888888;
+            --warning-color: #999999;
         }
 
         * {
@@ -191,87 +191,78 @@
             font-size: 1.2em;
         }
 
-        .drink-container {
+        .drum-container {
             position: relative;
-            width: 220px;
-            height: 320px;
+            width: 250px;
+            height: 250px;
             margin: 30px auto;
             perspective: 1000px;
         }
 
-        .drink-cup {
+        .drum {
             width: 100%;
             height: 100%;
-            background: var(--secondary-gradient);
-            border-radius: 20px 20px 35px 35px;
+            background: #333333;
+            border-radius: 50%;
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
             transform-style: preserve-3d;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 5px solid #555555;
+            overflow: hidden;
         }
 
-        .drink-cup:hover {
-            transform: rotateY(5deg) scale(1.03);
+        .drum:hover {
+            transform: scale(1.03);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .drink-cup:active {
-            transform: rotateY(5deg) scale(0.98);
+        .drum:active {
+            transform: scale(0.98);
         }
 
-        .cup-rim {
+        .drum-head {
             position: absolute;
-            top: -5px;
+            top: 10px;
             left: 10px;
             right: 10px;
-            height: 15px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50px 50px 0 0;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .drink-liquid {
-            position: absolute;
-            bottom: 25px;
-            left: 25px;
-            right: 25px;
-            height: 60%;
-            background: linear-gradient(to top, var(--accent-color), #44a08d);
-            border-radius: 0 0 25px 25px;
+            bottom: 10px;
+            background: #222222;
+            border-radius: 50%;
+            border: 3px solid #777777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
-            transition: height 0.5s ease;
-            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .liquid-surface {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.3);
+        .drum-center {
+            width: 50%;
+            height: 50%;
+            background: #111111;
             border-radius: 50%;
-            animation: ripple 2s infinite ease-in-out;
+            border: 2px solid #777777;
         }
 
-        @keyframes ripple {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 0.9; }
-        }
-
-        .bubble {
+        .music-notes {
             position: absolute;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: bubble 3s infinite ease-in-out;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        @keyframes bubble {
-            0% { transform: translateY(120px); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translateY(-20px); opacity: 0; }
+        .music-note {
+            position: absolute;
+            font-size: 1.5em;
+            opacity: 0;
+            animation: musicNote 1.5s ease-out forwards;
+        }
+
+        @keyframes musicNote {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+            100% { transform: scale(1) rotate(360deg); opacity: 0; }
         }
 
         .score-panel {
@@ -462,7 +453,7 @@
         .email-input:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+            box-shadow: 0 0 20px rgba(204, 204, 204, 0.3);
         }
 
         .email-input::placeholder {
@@ -476,7 +467,7 @@
         }
 
         .email-status {
-            background: rgba(34, 211, 238, 0.2);
+            background: rgba(204, 204, 204, 0.2);
             border: 1px solid var(--accent-color);
             border-radius: 10px;
             padding: 10px 15px;
@@ -488,12 +479,12 @@
         }
 
         .email-status.success {
-            background: rgba(16, 185, 129, 0.2);
+            background: rgba(170, 170, 170, 0.2);
             border-color: var(--success-color);
             color: var(--success-color);
         }
 
-        .water-splash {
+        .music-splash {
             position: fixed;
             pointer-events: none;
             z-index: 999;
@@ -517,7 +508,7 @@
         }
 
         .daily-limit-notice {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(136, 136, 136, 0.2);
             border: 1px solid var(--error-color);
             border-radius: 15px;
             padding: 20px;
@@ -534,7 +525,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(136, 136, 136, 0.2);
             border: 1px solid var(--error-color);
             color: var(--error-color);
             padding: 10px 15px;
@@ -548,7 +539,7 @@
         }
 
         .clear-storage-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
+            background: rgba(136, 136, 136, 0.3);
             transform: translateY(-2px);
         }
 
@@ -579,9 +570,9 @@
                 font-size: 2em;
             }
             
-            .drink-container {
-                width: 180px;
-                height: 280px;
+            .drum-container {
+                width: 200px;
+                height: 200px;
             }
             
             .game-container {
@@ -602,7 +593,7 @@
             <img id="profilePic" class="profile-pic" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif" alt="Profile">
             <div class="profile-details">
                 <h3 id="displayName">กำลังโหลด...</h3>
-                <p id="statusMessage"><i class="fas fa-gamepad"></i> พร้อมเล่นเกมส์!</p>
+                <p id="statusMessage"><i class="fas fa-music"></i> พร้อมเล่นเกมส์!</p>
             </div>
         </div>
     </div>
@@ -621,10 +612,10 @@
         <div id="gameContent">
             <div class="game-header">
                 <h1 class="game-title">
-                    <i class="fas fa-glass-water"></i>
-                    เกมส์เครื่องดื่มสุดสนุก
+                    <i class="fas fa-drum"></i>
+                    เกมส์ตีกลองสุดสนุก
                 </h1>
-                <p class="game-subtitle">คลิกแก้วเพื่อดื่มให้เร็วที่สุด!</p>
+                <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
             </div>
 
             <div class="instruction-card">
@@ -633,7 +624,7 @@
                         <i class="fas fa-mouse-pointer"></i>
                     </div>
                     <div>
-                        <strong>วิธีเล่น:</strong> คลิกที่แก้วเครื่องดื่มให้เร็วที่สุดภายใน 30 วินาที!
+                        <strong>วิธีเล่น:</strong> คลิกที่กลองให้เร็วที่สุดภายใน 30 วินาที!
                     </div>
                 </div>
                 <div class="instruction-item">
@@ -654,15 +645,12 @@
                 </div>
             </div>
 
-            <div class="drink-container">
-                <div class="drink-cup" id="drinkCup" onclick="drinkClick(event)">
-                    <div class="cup-rim"></div>
-                    <div class="drink-liquid" id="drinkLiquid">
-                        <div class="liquid-surface"></div>
-                        <div class="bubble" style="left: 20%; animation-delay: 0s; width: 8px; height: 8px;"></div>
-                        <div class="bubble" style="left: 60%; animation-delay: 1s; width: 6px; height: 6px;"></div>
-                        <div class="bubble" style="left: 80%; animation-delay: 2s; width: 10px; height: 10px;"></div>
+            <div class="drum-container">
+                <div class="drum" id="drum" onclick="drumHit(event)">
+                    <div class="drum-head">
+                        <div class="drum-center"></div>
                     </div>
+                    <div class="music-notes" id="musicNotes"></div>
                 </div>
             </div>
 
@@ -778,15 +766,15 @@
             }
         }
 
-        function createWaterSplash(x, y) {
-            const waterIcons = ['💧', '🌊', '💦', '🫧'];
-            const splashCount = Math.random() * 8 + 5; // 5-12 water drops
+        function createMusicSplash(x, y) {
+            const musicIcons = ['♪', '♫', '🎵', '🎶', '🥁', '🎸'];
+            const splashCount = Math.random() * 8 + 5; // 5-12 music notes
             
             for (let i = 0; i < splashCount; i++) {
                 setTimeout(() => {
                     const splash = document.createElement('div');
-                    splash.className = 'water-splash';
-                    splash.innerHTML = waterIcons[Math.floor(Math.random() * waterIcons.length)];
+                    splash.className = 'music-splash';
+                    splash.innerHTML = musicIcons[Math.floor(Math.random() * musicIcons.length)];
                     
                     // Random position around click point
                     const offsetX = (Math.random() - 0.5) * 200;
@@ -808,6 +796,31 @@
             }
         }
 
+        function createMusicNote() {
+            const musicNotes = document.getElementById('musicNotes');
+            const note = document.createElement('div');
+            note.className = 'music-note';
+            
+            const musicSymbols = ['♪', '♫', '🎵', '🎶'];
+            note.innerHTML = musicSymbols[Math.floor(Math.random() * musicSymbols.length)];
+            
+            const left = Math.random() * 80 + 10;
+            const top = Math.random() * 80 + 10;
+            
+            note.style.left = left + '%';
+            note.style.top = top + '%';
+            note.style.fontSize = (Math.random() * 1.5 + 1) + 'em';
+            
+            musicNotes.appendChild(note);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (note.parentNode) {
+                    note.parentNode.removeChild(note);
+                }
+            }, 1500);
+        }
+
         // LINE LIFF initialization
         window.onload = function() {
             liff.init({
@@ -822,7 +835,7 @@
                 console.error('LIFF initialization failed', err);
                 // Fallback for testing without LINE
                 document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5ałF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
                 checkDailyLimit();
             });
 
@@ -834,7 +847,7 @@
             liff.getProfile().then(profile => {
                 userProfile = profile;
                 document.getElementById('displayName').textContent = profile.displayName;
-                document.getElementById('profilePic').src = profile.pictureUrl || 'https://via.placeholder.com/60x60/3b82f6/ffffff?text=U';
+                document.getElementById('profilePic').src = profile.pictureUrl || 'https://via.placeholder.com/60x60/333333/ffffff?text=U';
                 
                 // Get email from LINE if available
                 getLineEmail();
@@ -842,7 +855,7 @@
             }).catch(err => {
                 console.error('Error getting profile:', err);
                 document.getElementById('displayName').textContent = 'ผู้ใช้ไลน์';
-                document.getElementById('profilePic').src = 'https://via.placeholder.com/60x60/3b82f6/ffffff?text=U';
+                document.getElementById('profilePic').src = 'https://via.placeholder.com/60x60/333333/ffffff?text=U';
                 checkDailyLimit();
             });
         }
@@ -887,34 +900,30 @@
             }, 1000);
         }
 
-        function drinkClick(event) {
+        function drumHit(event) {
             if (!gameActive) return;
             
             score++;
             updateDisplay();
             
-            // Get click position for water splash effect
+            // Get click position for music splash effect
             const rect = event.target.getBoundingClientRect();
             const x = event.clientX;
             const y = event.clientY;
             
-            // Create water splash effect
-            createWaterSplash(x, y);
+            // Create music splash effect
+            createMusicSplash(x, y);
+            createMusicNote();
             
             // Visual feedback
-            const cup = document.getElementById('drinkCup');
-            cup.style.transform = 'rotateY(5deg) scale(0.95)';
+            const drum = document.getElementById('drum');
+            drum.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                cup.style.transform = 'rotateY(5deg) scale(1.03)';
+                drum.style.transform = 'scale(1.03)';
             }, 100);
             
             // Show celebration
             showCelebration(getRandomIcon());
-            
-            // Reduce liquid level
-            const liquid = document.getElementById('drinkLiquid');
-            const currentHeight = Math.max(10, 60 - (score * 1.5));
-            liquid.style.height = currentHeight + '%';
         }
 
         function endGame() {
@@ -943,12 +952,12 @@
 
         function getRandomIcon() {
             const icons = [
-                '<i class="fas fa-glass-water"></i>',
-                '<i class="fas fa-droplet"></i>',
+                '<i class="fas fa-drum"></i>',
+                '<i class="fas fa-music"></i>',
                 '<i class="fas fa-star"></i>',
-                '<i class="fas fa-fire"></i>',
-                '<i class="fas fa-bolt"></i>',
-                '<i class="fas fa-gem"></i>'
+                '<i class="fas fa-gem"></i>',
+                '♪',
+                '♫'
             ];
             return icons[Math.floor(Math.random() * icons.length)];
         }
@@ -962,8 +971,6 @@
             document.getElementById('submitBtn').classList.add('hidden');
             document.getElementById('playAgainBtn').classList.add('hidden');
             
-            // Reset liquid level
-            document.getElementById('drinkLiquid').style.height = '60%';
             updateDisplay();
         }
 
@@ -979,7 +986,7 @@
             if (userProfile.email) {
                 emailInput.value = userProfile.email;
                 emailInput.style.borderColor = 'var(--success-color)';
-                emailInput.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.3)';
+                emailInput.style.boxShadow = '0 0 20px rgba(170, 170, 170, 0.3)';
                 
                 emailStatus.style.display = 'flex';
                 emailStatus.className = 'email-status success';
@@ -1073,12 +1080,12 @@
 
             const flexMessage = {
                 type: "flex",
-                altText: "ผลการเล่นเกมส์เครื่องดื่ม",
+                altText: "ผลการเล่นเกมส์ตีกลอง",
                 contents: {
                     type: "bubble",
                     hero: {
                         type: "image",
-                        url: userProfile.pictureUrl || "https://via.placeholder.com/400x200/3b82f6/ffffff?text=เกมส์เครื่องดื่ม",
+                        url: userProfile.pictureUrl || "https://via.placeholder.com/400x200/333333/ffffff?text=เกมส์ตีกลอง",
                         size: "full",
                         aspectRatio: "20:13",
                         aspectMode: "cover"
@@ -1089,10 +1096,10 @@
                         contents: [
                             {
                                 type: "text",
-                                text: "🏆 ผลการเล่นเกมส์",
+                                text: "🥁 ผลการเล่นเกมส์",
                                 weight: "bold",
                                 size: "xl",
-                                color: "#3b82f6"
+                                color: "#333333"
                             },
                             {
                                 type: "box",
@@ -1138,7 +1145,7 @@
                                                 type: "text",
                                                 text: data.score + " คะแนน",
                                                 wrap: true,
-                                                color: "#06b6d4",
+                                                color: "#cccccc",
                                                 size: "lg",
                                                 weight: "bold",
                                                 flex: 5
@@ -1147,7 +1154,7 @@
                                     },
                                     {
                                         type: "text",
-                                        text: "🎉 ขอบคุณที่ร่วมสนุกกับเรา! อย่าลืมแวะมาชิมเครื่องดื่มแสนอร่อยที่บูธของเรานะคะ",
+                                        text: "🎶 ขอบคุณที่ร่วมสนุกกับเรา! อย่าลืมแวะมาชมการแสดงดนตรีที่บูธของเรานะคะ",
                                         wrap: true,
                                         color: "#666666",
                                         size: "sm",
@@ -1171,7 +1178,7 @@
                                     label: "📊 ดูสถิติ",
                                     uri: createDashboardUrl()
                                 },
-                                color: "#3b82f6"
+                                color: "#333333"
                             }
                         ]
                     }
@@ -1223,7 +1230,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
