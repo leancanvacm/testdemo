@@ -238,7 +238,7 @@
         <div class="controls">
             <div class="date-selector">
                 <label for="datePicker">เลือกวันที่:</label>
-                <input type="date" id="datePicker" value="2025-09-21">
+                <input type="date" id="datePicker">
                 <button class="btn" onclick="loadData()">
                     <i class="fas fa-search"></i>
                     แสดงข้อมูล
@@ -298,11 +298,9 @@
             document.getElementById('datePicker').value = formattedDate;
         }
 
-        // อัปเดตการแสดงผลวันที่
-        function updateDateDisplay() {
-            const dateDisplay = document.getElementById('dateDisplay');
-            const selectedDate = document.getElementById('datePicker').value;
-            const dateParts = selectedDate.split('-');
+        // แปลงวันที่เป็นรูปแบบภาษาไทย
+        function formatThaiDate(dateString) {
+            const dateParts = dateString.split('-');
             const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
             const options = {
@@ -311,7 +309,14 @@
                 day: 'numeric',
                 weekday: 'long'
             };
-            const thaiDate = date.toLocaleDateString('th-TH', options);
+            return date.toLocaleDateString('th-TH', options);
+        }
+
+        // อัปเดตการแสดงผลวันที่
+        function updateDateDisplay() {
+            const dateDisplay = document.getElementById('dateDisplay');
+            const selectedDate = document.getElementById('datePicker').value;
+            const thaiDate = formatThaiDate(selectedDate);
 
             dateDisplay.innerHTML = `<i class="fas fa-calendar-day"></i> ข้อมูลวันที่: ${thaiDate}`;
             document.getElementById('leaderboardTitle').textContent = `อันดับคะแนนสูงสุดวันที่ ${thaiDate}`;
