@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เกมส์ตีกลองสุดสนุก</title>
+    <title>เกมส์ตีกลองสุดสนุก - ครบเครื่องเรื่องไอที</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -74,6 +74,114 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .location-check-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        .location-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        .location-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .location-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .location-distance {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(96, 165, 250, 0.2);
+            border-radius: 15px;
+            border: 1px solid var(--accent-color);
+        }
+        .location-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .game-button {
+            background: var(--secondary-gradient);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            font-family: 'Kanit', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .game-button:active {
+            transform: translateY(-1px);
+        }
+        .game-button.primary {
+            background: var(--success-color);
+        }
+        .game-button.secondary {
+            background: var(--warning-color);
+        }
+        .game-button.error {
+            background: var(--error-color);
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none !important;
+        }
+        #gameContent {
+            width: 100%;
+        }
         .profile-header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -81,13 +189,16 @@
             text-align: center;
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            margin-bottom: 20px;
         }
         .profile-info {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            max-width: 400px;
             margin: 0 auto;
         }
         .profile-pic {
@@ -262,36 +373,6 @@
             font-weight: 700;
             color: var(--accent-color);
         }
-        .game-button {
-            background: var(--secondary-gradient);
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: white;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            font-family: 'Kanit', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .game-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        .game-button:active {
-            transform: translateY(-1px);
-        }
-        .game-button.primary {
-            background: var(--success-color);
-        }
-        .game-button.secondary {
-            background: var(--warning-color);
-        }
         .celebration {
             position: fixed;
             top: 50%;
@@ -337,19 +418,6 @@
             text-align: center;
             border: 1px solid var(--glass-border);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         .email-modal {
             display: none;
@@ -455,48 +523,6 @@
             margin: 20px 0;
             text-align: center;
         }
-        .hidden {
-            display: none !important;
-        }
-        .clear-storage-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid var(--error-color);
-            color: var(--error-color);
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8em;
-            font-family: 'Kanit', sans-serif;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-        .clear-storage-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: translateY(-2px);
-        }
-        .clear-notification {
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-        .clear-notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
         @media (max-width: 480px) {
             .game-title {
                 font-size: 2em;
@@ -508,6 +534,9 @@
             .game-container {
                 padding: 20px 15px;
             }
+            .location-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -517,99 +546,134 @@
         <div class="bg-circle"></div>
         <div class="bg-circle"></div>
     </div>
-    <div class="profile-header">
-        <div class="profile-info">
-            <img id="profilePic" class="profile-pic" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif" alt="Profile">
-            <div class="profile-details">
-                <h3 id="displayName">กำลังโหลด...</h3>
-                <p id="statusMessage"><i class="fas fa-music"></i> พร้อมเล่นเกมส์!</p>
+
+    <div class="container">
+        <!-- หน้าตรวจสอบตำแหน่ง location -->
+        <div id="locationCheck" class="location-check-card">
+            <div class="spinner" id="locationSpinner"></div>
+            <div class="location-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h2 class="location-title">กำลังตรวจสอบตำแหน่ง</h2>
+            <p class="location-description">เรากำลังตรวจสอบว่าคุณอยู่ใกล้กับบูธของเราหรือไม่</p>
+            <div id="locationDistance" class="location-distance hidden">
+                ระยะทางจากบูธ: <span id="distanceValue">0</span> เมตร
+            </div>
+            <div id="locationError" class="location-error hidden">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorMessage"></span>
+            </div>
+            <div id="locationActions" class="hidden">
+                <button id="retryLocation" class="game-button secondary">
+                    <i class="fas fa-sync-alt"></i> ลองอีกครั้ง
+                </button>
+            </div>
+        </div>
+
+        <!-- เนื้อหาเกม (จะถูกแสดงหลังจากตรวจสอบระยะทางผ่านแล้ว) -->
+        <div id="gameContent" class="hidden">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <img id="profilePic" class="profile-pic" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif" alt="Profile">
+                    <div class="profile-details">
+                        <h3 id="displayName">กำลังโหลด...</h3>
+                        <p id="statusMessage"><i class="fas fa-music"></i> พร้อมเล่นเกมส์!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <div class="daily-limit-notice hidden" id="dailyLimitNotice">
+                    <h3><i class="fas fa-clock"></i> คุณได้เล่นแล้ววันนี้</h3>
+                    <p>คุณสามารถเล่นได้เพียงครั้งเดียวต่อวัน<br>กลับมาเล่นใหม่พรุ่งนี้นะ!</p>
+                    <button class="game-button secondary" onclick="showDashboard()">
+                        <i class="fas fa-chart-bar"></i>
+                        ดูสถิติ
+                    </button>
+                </div>
+                
+                <div class="game-header">
+                    <h1 class="game-title">
+                        <i class="fas fa-drum"></i>
+                        เกมส์ตีกลองสุดสนุก
+                    </h1>
+                    <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
+                </div>
+                
+                <div class="instruction-card">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <div>
+                            <strong>วิธีเล่น:</strong> คลิกที่กลองให้เร็วที่สุดภายใน 30 วินาที!
+                        </div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div>
+                            <strong>เป้าหมาย:</strong> ได้คะแนนมากที่สุดและชนะรางวัลพิเศษ!
+                        </div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div>
+                            <strong>กติกา:</strong> เล่นได้เพียงครั้งเดียวต่อวัน
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drum-container">
+                    <div class="drum" id="drum" onclick="drumHit(event)">
+                        <div class="drum-head">
+                            <div class="drum-center"></div>
+                        </div>
+                        <div class="music-notes" id="musicNotes"></div>
+                    </div>
+                </div>
+                
+                <div class="score-panel">
+                    <div class="score-grid">
+                        <div class="score-item">
+                            <div class="score-label">คะแนน</div>
+                            <div class="score-value" id="score">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">เวลา</div>
+                            <div class="score-value" id="timer">30</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="game-button" id="startBtn" onclick="startGame()">
+                    <i class="fas fa-play"></i>
+                    เริ่มเกมส์
+                </button>
+                <button class="game-button primary hidden" id="submitBtn" onclick="showEmailModal()">
+                    <i class="fas fa-save"></i>
+                    บันทึกคะแนน
+                </button>
+                <button class="game-button secondary hidden" id="playAgainBtn" onclick="showDashboard()">
+                    <i class="fas fa-chart-bar"></i>
+                    ดูสถิติ
+                </button>
             </div>
         </div>
     </div>
-    <div class="game-container">
-        <div class="daily-limit-notice hidden" id="dailyLimitNotice">
-            <h3><i class="fas fa-clock"></i> คุณได้เล่นแล้ววันนี้</h3>
-            <p>คุณสามารถเล่นได้เพียงครั้งเดียวต่อวัน<br>กลับมาเล่นใหม่พรุ่งนี้นะ!</p>
-            <button class="game-button secondary" onclick="showDashboard()">
-                <i class="fas fa-chart-bar"></i>
-                ดูสถิติ
-            </button>
-        </div>
-        <div id="gameContent">
-            <div class="game-header">
-                <h1 class="game-title">
-                    <i class="fas fa-drum"></i>
-                    เกมส์ตีกลองสุดสนุก
-                </h1>
-                <p class="game-subtitle">คลิกกลองเพื่อตีให้เร็วที่สุด!</p>
-            </div>
-            <div class="instruction-card">
-                <div class="instruction-item">
-                    <div class="instruction-icon">
-                        <i class="fas fa-mouse-pointer"></i>
-                    </div>
-                    <div>
-                        <strong>วิธีเล่น:</strong> คลิกที่กลองให้เร็วที่สุดภายใน 30 วินาที!
-                    </div>
-                </div>
-                <div class="instruction-item">
-                    <div class="instruction-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div>
-                        <strong>เป้าหมาย:</strong> ได้คะแนนมากที่สุดและชนะรางวัลพิเศษ!
-                    </div>
-                </div>
-                <div class="instruction-item">
-                    <div class="instruction-icon">
-                        <i class="fas fa-calendar-day"></i>
-                    </div>
-                    <div>
-                        <strong>กติกา:</strong> เล่นได้เพียงครั้งเดียวต่อวัน
-                    </div>
-                </div>
-            </div>
-            <div class="drum-container">
-                <div class="drum" id="drum" onclick="drumHit(event)">
-                    <div class="drum-head">
-                        <div class="drum-center"></div>
-                    </div>
-                    <div class="music-notes" id="musicNotes"></div>
-                </div>
-            </div>
-            <div class="score-panel">
-                <div class="score-grid">
-                    <div class="score-item">
-                        <div class="score-label">คะแนน</div>
-                        <div class="score-value" id="score">0</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-label">เวลา</div>
-                        <div class="score-value" id="timer">30</div>
-                    </div>
-                </div>
-            </div>
-            <button class="game-button" id="startBtn" onclick="startGame()">
-                <i class="fas fa-play"></i>
-                เริ่มเกมส์
-            </button>
-            <button class="game-button primary hidden" id="submitBtn" onclick="showEmailModal()">
-                <i class="fas fa-save"></i>
-                บันทึกคะแนน
-            </button>
-            <button class="game-button secondary hidden" id="playAgainBtn" onclick="showDashboard()">
-                <i class="fas fa-chart-bar"></i>
-                ดูสถิติ
-            </button>
-        </div>
-    </div>
+
     <div class="celebration" id="celebration"></div>
+    
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="spinner"></div>
             <div><i class="fas fa-database"></i> กำลังบันทึกข้อมูล...</div>
         </div>
     </div>
+    
     <div class="email-modal" id="emailModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -633,20 +697,140 @@
             </div>
         </div>
     </div>
-    <button class="clear-storage-btn" id="clearStorageBtn">
-        <i class="fas fa-trash-alt"></i> เคลียร์ข้อมูลทดสอบ
-    </button>
-    <div class="clear-notification" id="clearNotification">
-        <i class="fas fa-check-circle"></i> เคลียร์ข้อมูลเรียบร้อยแล้ว
-    </div>
+
     <script>
+        // พิกัดสถานที่ออกบูธ (ตัวอย่าง: ตั้งค่าเป็นสยามพารากอน)
+        const VENUE_LOCATION = {
+            latitude: 13.7466,
+            longitude: 100.5331
+        };
+        
+        // ระยะทางสูงสุดที่อนุญาต (เมตร)
+        const MAX_DISTANCE = 500;
+        
         let gameActive = false;
         let score = 0;
         let timeLeft = 30;
         let gameTimer;
         let userProfile = {};
         let hasPlayedToday = false;
+        let userLocation = null;
 
+        // ฟังก์ชันคำนวณระยะทางระหว่างสองพิกัด (Haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // รัศมีของโลกในหน่วยเมตร
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+            return distance;
+        }
+
+        // ฟังก์ชันตรวจสอบตำแหน่ง
+        function checkUserLocation() {
+            if (!navigator.geolocation) {
+                showLocationError("เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง");
+                return;
+            }
+
+            document.getElementById('locationSpinner').classList.remove('hidden');
+            document.getElementById('locationError').classList.add('hidden');
+            document.getElementById('locationDistance').classList.add('hidden');
+            document.getElementById('locationActions').classList.add('hidden');
+
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    userLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+
+                    const distance = calculateDistance(
+                        userLocation.latitude, 
+                        userLocation.longitude,
+                        VENUE_LOCATION.latitude,
+                        VENUE_LOCATION.longitude
+                    );
+
+                    document.getElementById('locationSpinner').classList.add('hidden');
+                    document.getElementById('locationDistance').classList.remove('hidden');
+                    document.getElementById('distanceValue').textContent = Math.round(distance);
+
+                    if (distance <= MAX_DISTANCE) {
+                        // อยู่ภายในระยะที่กำหนด
+                        setTimeout(() => {
+                            document.getElementById('locationCheck').classList.add('hidden');
+                            document.getElementById('gameContent').classList.remove('hidden');
+                            initializeGame();
+                        }, 2000);
+                    } else {
+                        // อยู่ไกลเกินไป
+                        showLocationError(`คุณอยู่ห่างจากบูธ ${Math.round(distance)} เมตร ซึ่งเกินระยะที่อนุญาต (${MAX_DISTANCE} เมตร)`);
+                        
+                        // ปิด LIFF ถ้าเปิดใน LINE
+                        if (typeof liff !== 'undefined' && liff.isInClient()) {
+                            setTimeout(() => {
+                                liff.closeWindow();
+                            }, 5000);
+                        }
+                    }
+                },
+                error => {
+                    document.getElementById('locationSpinner').classList.add('hidden');
+                    let errorMessage = "ไม่สามารถระบุตำแหน่งของคุณได้";
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = "คุณไม่ได้อนุญาตให้เข้าถึงตำแหน่ง";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = "ไม่สามารถระบุตำแหน่งได้";
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = "การระบุตำแหน่งใช้เวลานานเกินไป";
+                            break;
+                    }
+                    
+                    showLocationError(errorMessage);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        // ฟังก์ชันแสดงข้อผิดพลาดตำแหน่ง
+        function showLocationError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('locationError').classList.remove('hidden');
+            document.getElementById('locationActions').classList.remove('hidden');
+        }
+
+        // ฟังก์ชันเริ่มต้นเกมหลังจากตรวจสอบตำแหน่งแล้ว
+        function initializeGame() {
+            liff.init({
+                liffId: "2008150958-lezrMz2x"
+            }).then(() => {
+                if (liff.isLoggedIn()) {
+                    getUserProfile();
+                } else {
+                    liff.login();
+                }
+            }).catch((err) => {
+                console.error('LIFF initialization failed', err);
+                document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
+                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
+                checkDailyLimit();
+            });
+        }
+
+        // ส่วนที่เหลือของฟังก์ชันเกม (เหมือนเดิม)
         function checkDailyLimit() {
             const today = new Date().toDateString();
             const lastPlayDate = localStorage.getItem('lastPlayDate');
@@ -729,25 +913,6 @@
                 }
             }, 1500);
         }
-
-        window.onload = function() {
-            liff.init({
-                liffId: "2008150958-lezrMz2x"
-            }).then(() => {
-                if (liff.isLoggedIn()) {
-                    getUserProfile();
-                } else {
-                    liff.login();
-                }
-            }).catch((err) => {
-                console.error('LIFF initialization failed', err);
-                document.getElementById('displayName').textContent = 'ผู้ใช้ทดสอบ';
-                document.getElementById('profilePic').src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHB6MGEzMm9hczVranI0NnpocXNscmE5aTU3NTR4ZHdscDE0MXlxdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZXkraFrlIW1D25M6ZJ/giphy.gif';
-                checkDailyLimit();
-            });
-
-            document.getElementById('clearStorageBtn').addEventListener('click', clearLocalStorage);
-        };
 
         function getUserProfile() {
             liff.getProfile().then(profile => {
@@ -1096,29 +1261,14 @@
             return baseUrl + '?uid=' + encodeURIComponent(userProfile.userId || 'test-user');
         }
 
-        function clearLocalStorage() {
-            const currentUserId = userProfile.userId || 'guest';
-
-            localStorage.clear();
-
-            const notification = document.getElementById('clearNotification');
-            notification.classList.add('show');
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-
-            hasPlayedToday = false;
-
-            document.getElementById('dailyLimitNotice').classList.add('hidden');
-            document.getElementById('gameContent').classList.remove('hidden');
-
-            resetGame();
-
-            console.log('LocalStorage cleared for testing');
-        }
+        // เริ่มต้นการตรวจสอบตำแหน่งเมื่อโหลดหน้าเว็บ
+        window.onload = function() {
+            // เพิ่ม event listener สำหรับปุ่มลองอีกครั้ง
+            document.getElementById('retryLocation').addEventListener('click', checkUserLocation);
+            
+            // เริ่มการตรวจสอบตำแหน่ง
+            checkUserLocation();
+        };
     </script>
 </body>
 </html>
-
-
