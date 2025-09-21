@@ -145,6 +145,13 @@
             background: linear-gradient(45deg, #cd7f32, #daa520);
             color: #1e40af;
         }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
         .player-info {
             flex: 1;
         }
@@ -205,24 +212,19 @@
             .header h1 {
                 font-size: 1.8em;
             }
-
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
             .container {
                 padding: 10px;
             }
-
             .controls {
                 flex-direction: column;
             }
-
             .date-selector {
                 flex-direction: column;
                 width: 100%;
             }
-
             .date-selector input {
                 width: 100%;
             }
@@ -275,7 +277,6 @@
                 <i class="fas fa-medal"></i>
                 <span id="leaderboardTitle">อันดับคะแนนสูงสุด</span>
             </div>
-
             <div id="leaderboardContent">
                 <div class="loading">
                     <div class="spinner"></div>
@@ -291,18 +292,15 @@
         </div>
     </div>
     <script>
-        // ตั้งค่าวันที่เริ่มต้นเป็นวันปัจจุบัน
         function setDefaultDate() {
             const today = new Date();
             const formattedDate = today.toISOString().split('T')[0];
             document.getElementById('datePicker').value = formattedDate;
         }
 
-        // แปลงวันที่เป็นรูปแบบภาษาไทย
         function formatThaiDate(dateString) {
             const dateParts = dateString.split('-');
             const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-
             const options = {
                 year: 'numeric',
                 month: 'long',
@@ -312,25 +310,19 @@
             return date.toLocaleDateString('th-TH', options);
         }
 
-        // อัปเดตการแสดงผลวันที่
         function updateDateDisplay() {
             const dateDisplay = document.getElementById('dateDisplay');
             const selectedDate = document.getElementById('datePicker').value;
             const thaiDate = formatThaiDate(selectedDate);
-
             dateDisplay.innerHTML = `<i class="fas fa-calendar-day"></i> ข้อมูลวันที่: ${thaiDate}`;
             document.getElementById('leaderboardTitle').textContent = `อันดับคะแนนสูงสุดวันที่ ${thaiDate}`;
         }
 
-        // โหลดข้อมูลจาก Google Apps Script
         function loadData() {
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbwT8sAUkjODy9J5mFA8xUqoAHAp77KbCCZOIV8VEq5gbieJ4n0KM_0wuN_tbxcQ_LY/exec';
             const selectedDate = document.getElementById('datePicker').value;
-
-            // อัปเดตการแสดงผลวันที่
             updateDateDisplay();
 
-            // แสดงสถานะกำลังโหลด
             document.getElementById('leaderboardContent').innerHTML = `
                 <div class="loading">
                     <div class="spinner"></div>
@@ -338,23 +330,17 @@
                 </div>
             `;
 
-            // รีเซ็ตค่าสถิติ
             document.getElementById('totalPlayers').textContent = '0';
             document.getElementById('totalGames').textContent = '0';
             document.getElementById('averageScore').textContent = '0';
             document.getElementById('highestScore').textContent = '0';
 
-            // เรียก API เพื่อดึงข้อมูลตามวันที่
             const apiUrl = `${scriptUrl}?action=getDailyStats&date=${selectedDate}`;
-
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // อัปเดตสถิติ
                         updateStats(data.stats);
-
-                        // อัปเดตตารางอันดับ
                         updateLeaderboard(data.leaderboard);
                     } else {
                         showError('ไม่สามารถโหลดข้อมูลได้');
@@ -363,13 +349,10 @@
                 .catch(error => {
                     console.error('Error loading data:', error);
                     showError('เกิดข้อผิดพลาดในการโหลดข้อมูล');
-
-                    // ใช้ข้อมูลตัวอย่างสำหรับการทดสอบ
                     useSampleData();
                 });
         }
 
-        // อัปเดตสถิติ
         function updateStats(stats) {
             document.getElementById('totalPlayers').textContent = stats.dailyPlayers || 0;
             document.getElementById('totalGames').textContent = stats.dailyGames || 0;
@@ -377,10 +360,8 @@
             document.getElementById('highestScore').textContent = stats.dailyHighest || 0;
         }
 
-        // อัปเดตตารางอันดับ
         function updateLeaderboard(leaderboard) {
             const content = document.getElementById('leaderboardContent');
-
             if (!leaderboard || leaderboard.length === 0) {
                 content.innerHTML = `
                     <div class="no-data">
@@ -394,10 +375,11 @@
             let html = '';
             leaderboard.forEach((player, index) => {
                 const rank = index + 1;
-
+                const profilePicUrl = player.profilePic || 'https://via.placeholder.com/40/3b82f6/ffffff?text=P';
                 html += `
                     <div class="leaderboard-item">
                         <div class="rank ${rank <= 3 ? 'rank-' + rank : ''}">${rank}</div>
+                        <img class="profile-pic" src="${profilePicUrl}" alt="${player.name}">
                         <div class="player-info">
                             <div class="player-name">${player.name}</div>
                             <div class="player-score">${player.score} คะแนน</div>
@@ -408,7 +390,6 @@
             content.innerHTML = html;
         }
 
-        // แสดงข้อผิดพลาด
         function showError(message) {
             const content = document.getElementById('leaderboardContent');
             content.innerHTML = `
@@ -419,33 +400,25 @@
             `;
         }
 
-        // ใช้ข้อมูลตัวอย่างสำหรับการทดสอบ
         function useSampleData() {
             const selectedDate = document.getElementById('datePicker').value;
-
-            // สร้างข้อมูลตัวอย่าง
             const sampleStats = {
                 dailyPlayers: 8,
                 dailyGames: 12,
                 dailyAverage: 42,
                 dailyHighest: 78
             };
-
             const sampleLeaderboard = [
-                { name: "ผู้เล่น A", score: 78 },
-                { name: "ผู้เล่น B", score: 65 },
-                { name: "ผู้เล่น C", score: 58 },
-                { name: "ผู้เล่น D", score: 52 },
-                { name: "ผู้เล่น E", score: 47 }
+                { name: "ผู้เล่น A", score: 78, profilePic: "https://via.placeholder.com/40/3b82f6/ffffff?text=A" },
+                { name: "ผู้เล่น B", score: 65, profilePic: "https://via.placeholder.com/40/3b82f6/ffffff?text=B" },
+                { name: "ผู้เล่น C", score: 58, profilePic: "https://via.placeholder.com/40/3b82f6/ffffff?text=C" },
+                { name: "ผู้เล่น D", score: 52, profilePic: "https://via.placeholder.com/40/3b82f6/ffffff?text=D" },
+                { name: "ผู้เล่น E", score: 47, profilePic: "https://via.placeholder.com/40/3b82f6/ffffff?text=E" }
             ];
 
-            // อัปเดตสถิติ
             updateStats(sampleStats);
-
-            // อัปเดตตารางอันดับ
             updateLeaderboard(sampleLeaderboard);
 
-            // แสดงคำเตือน
             const content = document.getElementById('leaderboardContent');
             const warningElement = document.createElement('div');
             warningElement.innerHTML = `
@@ -457,7 +430,6 @@
             content.insertBefore(warningElement, content.firstChild);
         }
 
-        // โหลดข้อมูลเมื่อเปิดหน้า
         window.onload = function() {
             setDefaultDate();
             updateDateDisplay();
@@ -466,4 +438,3 @@
     </script>
 </body>
 </html>
-
