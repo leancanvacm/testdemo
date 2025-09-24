@@ -815,6 +815,13 @@
         let userProfile = {};
         let hasPlayedToday = false;
         let userLocation = null;
+        
+        // ตัวแปรสำหรับเสียง
+        let audioContext;
+        let drumSound;
+        let startSound;
+        let endSound;
+        let soundEnabled = false;
 
         // ฟังก์ชันคำนวณระยะทางระหว่างสองพิกัด (Haversine formula)
         function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -918,6 +925,9 @@
 
         // ฟังก์ชันเริ่มต้นเกมหลังจากตรวจสอบตำแหน่งแล้ว
         function initializeGame() {
+            // เริ่มต้นระบบเสียง
+            initializeAudio();
+            
             liff.init({
                 liffId: "2008150958-lezrMz2x"
             }).then(() => {
@@ -1081,11 +1091,162 @@
             }
         }
 
+        // ฟังก์ชันเริ่มต้นระบบเสียง
+        function initializeAudio() {
+            try {
+                // สร้าง AudioContext สำหรับเล่นเสียง
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // สร้างเสียงกลอง
+                createDrumSound();
+                
+                // สร้างเสียงเริ่มเกม
+                createStartSound();
+                
+                // สร้างเสียงจบเกม
+                createEndSound();
+                
+                soundEnabled = true;
+                console.log('Audio system initialized');
+            } catch (error) {
+                console.error('Error initializing audio:', error);
+                soundEnabled = false;
+            }
+        }
+
+        // ฟังก์ชันสร้างเสียงกลอง
+        function createDrumSound() {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+            
+            drumSound = { oscillator, gainNode };
+        }
+
+        // ฟังก์ชันสร้างเสียงเริ่มเกม
+        function createStartSound() {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+            
+            startSound = { oscillator, gainNode };
+        }
+
+        // ฟังก์ชันสร้างเสียงจบเกม
+        function createEndSound() {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            
+            // สร้างเสียงที่มีหลายโน้ต
+            const now = audioContext.currentTime;
+            oscillator.frequency.setValueAtTime(300, now);
+            oscillator.frequency.setValueAtTime(250, now + 0.1);
+            oscillator.frequency.setValueAtTime(200, now + 0.2);
+            oscillator.frequency.setValueAtTime(150, now + 0.3);
+            
+            gainNode.gain.setValueAtTime(0.4, now);
+            gainNode.gain.setValueAtTime(0.3, now + 0.1);
+            gainNode.gain.setValueAtTime(0.2, now + 0.2);
+            gainNode.gain.setValueAtTime(0.1, now + 0.3);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+            
+            oscillator.start(now);
+            oscillator.stop(now + 0.5);
+            
+            endSound = { oscillator, gainNode };
+        }
+
+        // ฟังก์ชันเล่นเสียงกลอง
+        function playDrumSound() {
+            if (!soundEnabled || !audioContext) return;
+            
+            try {
+                // สร้างเสียงใหม่ทุกครั้งที่ตีกลอง
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // สุ่มเสียงกลองให้มีความหลากหลาย
+                const baseFreq = 80 + Math.random() * 40;
+                oscillator.type = Math.random() > 0.5 ? 'sine' : 'square';
+                oscillator.frequency.setValueAtTime(baseFreq, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(baseFreq * 0.7, audioContext.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (error) {
+                console.error('Error playing drum sound:', error);
+            }
+        }
+
+        // ฟังก์ชันเล่นเสียงเริ่มเกม
+        function playStartSound() {
+            if (!soundEnabled || !audioContext) return;
+            
+            try {
+                createStartSound();
+            } catch (error) {
+                console.error('Error playing start sound:', error);
+            }
+        }
+
+        // ฟังก์ชันเล่นเสียงจบเกม
+        function playEndSound() {
+            if (!soundEnabled || !audioContext) return;
+            
+            try {
+                createEndSound();
+            } catch (error) {
+                console.error('Error playing end sound:', error);
+            }
+        }
+
         function startGame() {
             if (hasPlayedToday) {
                 showCelebration('<i class="fas fa-exclamation-triangle"></i> คุณได้เล่นแล้ววันนี้');
                 return;
             }
+            
             gameActive = true;
             score = 0;
             timeLeft = 30;
@@ -1095,6 +1256,9 @@
             document.getElementById('playAgainBtn').classList.add('hidden');
 
             updateDisplay();
+            
+            // เล่นเสียงเริ่มเกม
+            playStartSound();
 
             gameTimer = setInterval(() => {
                 timeLeft--;
@@ -1125,6 +1289,9 @@
                 drum.style.transform = 'scale(1.03)';
             }, 100);
 
+            // เล่นเสียงกลอง
+            playDrumSound();
+            
             showCelebration(getRandomIcon());
         }
 
@@ -1135,6 +1302,9 @@
             document.getElementById('submitBtn').classList.remove('hidden');
             document.getElementById('playAgainBtn').classList.remove('hidden');
 
+            // เล่นเสียงจบเกม
+            playEndSound();
+            
             showCelebration('<i class="fas fa-trophy"></i> เกมส์จบแล้ว! คะแนน: ' + score);
         }
 
